@@ -145,6 +145,7 @@ class Config:
         li_ = self.user['line_item']
         is_standard = li_['item_type'].upper() == "STANDARD"
         is_sponsorship = li_['item_type'].upper() == "SPONSORSHIP"
+        is_house = li_['item_type'].upper() == "HOUSE"
         end_str = li_.get('end_datetime')
         start_str = li_.get('start_datetime')
         fmt = self.app['mgr']['date_fmt']
@@ -175,9 +176,16 @@ class Config:
             unlimited_end_dt=not end_str,
         ))
 
-        if not is_sponsorship:
+        if not is_sponsorship and not is_house:
             li_.update({'goal': dict(
                 goalType="NONE",
+            )})
+
+        if is_house:
+            li_.update({'goal': dict(
+                goalType="DAILY",
+                unitType="IMPRESSIONS",
+                units=100,
             )})
 
         if vcpm:

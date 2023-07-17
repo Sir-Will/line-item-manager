@@ -98,6 +98,7 @@ properties:
           - "price_priority"
           - "standard"
           - "sponsorship"
+          - "house"
       priority:
         $ref: "#/definitions/priorityType"
       start_datetime:
