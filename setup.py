@@ -17,7 +17,7 @@ requirements = [
     'googleads==33.0.0',
     'jinja2==3.0.3',
     'jsonschema==4.4.0',
-    'PyYAML>=5.4',
+    'PyYAML==5.3.1',
     'retrying==1.3.3',
     'tqdm==4.56.0',
 ]
@@ -29,7 +29,7 @@ package_data = [
 
 release_requirements = [
     'bump2version>=1',
-    'twine==3.2.0',
+    'twine>=4',
 ]
 
 setup_requirements = []
@@ -79,6 +79,6 @@ setup(
     setup_requires=setup_requirements,
     test_suite='tests',
     url='https://github.com/prebid/line-item-manager',
-    version='0.2.9',
+    version='0.2.10',
     zip_safe=False,
 )
