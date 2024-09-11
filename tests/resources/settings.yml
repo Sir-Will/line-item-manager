@@ -1,6 +1,6 @@
 mgr:
   advertiser:
-    type: "ADVERTISER"
+    type: "TEST_ADVERTISER"
   creative:
     banner:
       size_override: True
@@ -17,11 +17,10 @@ mgr:
   max_lica_records: 100
 
 googleads:
-  version: 'v202408'
+  version: 'v202308'
   line_items:
     micro_cent_factor: 1000000
-    max_per_order: 200
-    # max_per_order: 450
+    max_per_order: 450
 
 prebid:
   bidders:
@@ -82,3 +81,4 @@ prebid:
       - min: 8.50
         max: 20.00
         interval: 0.50
+

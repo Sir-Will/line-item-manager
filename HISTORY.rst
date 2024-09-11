@@ -2,6 +2,30 @@
 History
 =======
 
+0.2.13 (2024-08-29)
+-------------------
+* Deprecate Python 3.7
+* Upgrade Google Ad Manager API to v202408
+* Upgrade Python package Click to 8.1.7
+* Upgrade Python package jsonschema to 4.23.0
+
+0.2.12 (2023-10-09)
+-------------------
+* Example script: Activate targeting values by network code, key Id and names (#149)
+
+0.2.11 (2023-09-29)
+-------------------
+* Expanded currency list to include GAM currencies
+* CLI support for custom settings and schema files for advanced users (#138)
+* Upgraded PyYAML and googleads packages (#144)
+* Python 3.11 support (#140)
+
+0.2.10 (2023-08-30)
+-------------------
+* BUG FIX: Error for unsupported GAM API version is not handled properly (#116)
+* BUG FIX: bidder-data.csv has spaces, causing line-item-manager to not find line items (#128)
+* Update Google Ad Manager to v202308 (#129)
+
 0.2.9 (2022-08-23)
 -------------------
 * Update Google Ad Manager to v202208 (#96)
