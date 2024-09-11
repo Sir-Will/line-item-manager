@@ -100,7 +100,7 @@ class Advertiser(AppOperations):
         super().__init__(*args, **kwargs)
 
 class Creative(AppOperations):
-    service = "CreativeService"
+    service = 'CreativeService'
     method = 'getCreativesByStatement'
     create_method = 'createCreatives'
     query_fields = ('id', 'name', 'advertiserId', 'width', 'height')
@@ -116,10 +116,11 @@ class CreativeVideo(Creative):
                      'vastRedirectType', 'duration')
 
     def __init__(self, *args, xsi_type: str='VastRedirectCreative', vastRedirectType: str='LINEAR',
-                 duration: int=config.app['prebid']['creative']['video']['max_duration'], **kwargs):
+                 duration: int, **kwargs):
         kwargs['xsi_type'] = xsi_type
         kwargs['vastRedirectType'] = vastRedirectType
-        kwargs['duration'] = duration
+        kwargs['duration'] = duration if duration else \
+          config.app['prebid']['creative']['video']['max_duration']
         super().__init__(*args, **kwargs)
 
 class CreativeBanner(Creative):
@@ -155,7 +156,7 @@ class LineItem(AppOperations):
     create_method = 'createLineItems'
 
 class Order(AppOperations):
-    service = "OrderService"
+    service = 'OrderService'
     method = 'getOrdersByStatement'
     create_method = 'createOrders'
     query_fields = ('id', 'name', 'advertiserId', 'traffickerId')
