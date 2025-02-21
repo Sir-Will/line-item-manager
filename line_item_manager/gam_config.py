@@ -158,6 +158,7 @@ class GAMLineItems:
                 params = dict(
                     micro_amount=config.micro_amount(cpm),
                     cpm=cpm,
+                    cpm_name=config.cpm_name(cpm),
                     li=self,
                     li_cfg=li_cfg,
                     user_cfg=config.user,

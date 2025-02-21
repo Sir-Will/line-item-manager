@@ -18,6 +18,7 @@ class Config:
     def __init__(self):
         self._schema = None
         self._cpm_names = None
+        self._cpm_values = None
         self._app = None
         self._start_time = datetime.now()
         self.set_logger()
@@ -74,6 +75,7 @@ class Config:
         self._user = load_file(filename)
         self._client = None
         self._cpm_names = None
+        self._cpm_values = None
 
     @property
     def start_time(self) -> datetime:
@@ -122,18 +124,37 @@ class Config:
             return self.user['rate']['granularity']['custom']
         return self.app['prebid']['price_granularity'][_type]
 
-    def cpm_names(self) -> List[str]:
+    def populate_cpm_arrays(self) -> None:
         if self._cpm_names is None:
-            values = set()
-            for bucket in self.cpm_buckets():
-                values.update(values_from_bucket(bucket))
-            self._cpm_names = ['%.2f' % v_ for v_ in sorted(values)]
+            price_mapping = self.user['rate']['granularity'].get('price_mapping')
+            if price_mapping:
+                sorted_map = dict(sorted(price_mapping.items(), key=lambda item: item[1]))
+                self._cpm_names = list(sorted_map.keys())
+                self._cpm_values = ['%.2f' % v_ for v_ in sorted(sorted_map.values())]
+            else:
+                values = set()
+                for bucket in self.cpm_buckets():
+                    values.update(values_from_bucket(bucket))
+                self._cpm_names = ['%.2f' % v_ for v_ in sorted(values)]
+                self._cpm_values = self._cpm_names
+
+    def cpm_name(self, cpm: Union[str]) -> int:
+        return self._cpm_names[self._cpm_values.index(cpm)]
+
+    def cpm_names(self) -> List[str]:
+        self.populate_cpm_arrays()
         if self.cli['test_run']:
             return self._cpm_names[:self.app['mgr']['test_run']['line_item_limit']]
         return self._cpm_names
+    
+    def cpm_values(self) -> List[str]:
+        self.populate_cpm_arrays()
+        if self.cli['test_run']:
+            return self._cpm_values[:self.app['mgr']['test_run']['line_item_limit']]
+        return self._cpm_values
 
     def cpm_names_batched(self) -> Iterable[List[str]]:
-        return ichunk(self.cpm_names(), self.app['googleads']['line_items']['max_per_order'])
+        return ichunk(self.cpm_values(), self.app['googleads']['line_items']['max_per_order'])
 
     def micro_amount(self, cpm: Union[str, float]) -> int:
         return int(float(cpm) * self.app['googleads']['line_items']['micro_cent_factor'])

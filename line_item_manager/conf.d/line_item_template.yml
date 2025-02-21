@@ -67,7 +67,7 @@ targeting:
         operator: "IS"
         keyId: {{ li.targeting_key.key.id }}
         valueIds:
-          - {{ li.targeting_key.names[cpm].id }}
+          - {{ li.targeting_key.names[cpm_name].id }}
   {% if li.media_type == 'video' %}
   requestPlatformTargeting:
     targetedRequestPlatforms: "VIDEO_PLAYER"

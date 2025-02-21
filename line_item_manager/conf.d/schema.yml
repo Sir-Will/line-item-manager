@@ -214,6 +214,8 @@ definitions:
         $ref: "#/definitions/granularityPredefinedType"
       custom:
         $ref: "#/definitions/cpmBucketArray"
+      price_mapping:
+        type: "object"
     if:
       properties:
         type:
@@ -222,8 +224,11 @@ definitions:
       required:
         - "type"
     then:
-      required:
-        - "custom"
+      oneOf:
+        - required:
+          - "custom"
+        - required:
+          - "price_mapping"
   granularityPredefinedType:
     enum:
       - 'low'
