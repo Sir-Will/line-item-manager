@@ -10,7 +10,11 @@ unlimitedEndDateTime: {{ user_cfg.line_item.unlimited_end_dt }}
 {% endif %}
 
 creativeRotationType: "EVEN"
+{% if user_cfg.line_item.childContentEligibility %}
+childContentEligibility: {{ user_cfg.line_item.childContentEligibility }}
+{% else %}
 childContentEligibility: "ALLOWED"
+{% endif %}
 
 lineItemType: "{{ li_cfg.item_type.upper() }}"
 {% if li_cfg.priority %}

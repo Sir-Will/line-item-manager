@@ -99,6 +99,10 @@ properties:
           - "standard"
           - "sponsorship"
           - "house"
+      childContentEligibility:
+        enum:
+          - "ALLOWED"
+          - "DISALLOWED"
       priority:
         $ref: "#/definitions/priorityType"
       start_datetime:
